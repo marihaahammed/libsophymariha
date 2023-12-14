@@ -1,6 +1,7 @@
 
 --Structure for the tables in the database--
 
+
 CREATE TABLE Books (
     BookID INT PRIMARY KEY,
     Title VARCHAR(255),
@@ -28,7 +29,8 @@ CREATE TABLE Members (
     Email VARCHAR(100),
     Phone VARCHAR(15),
     FineID INT,
-  );
+    FOREIGN KEY (FineID) REFERENCES Fines(FineID)
+);
 
 
 CREATE TABLE Checkouts (
@@ -38,7 +40,10 @@ CREATE TABLE Checkouts (
     CheckoutDate DATE,
     DueDate DATE,
     ReturnDate DATE,
-   );
+    FOREIGN KEY (BookID) REFERENCES Books(BookID),
+    FOREIGN KEY (MemberID) REFERENCES Members(MemberID)
+);
+
 
 CREATE TABLE Genres (
     GenreID INT PRIMARY KEY,
@@ -58,7 +63,9 @@ CREATE TABLE Reservations (
     BookID INT,
     MemberID INT,
     ReservationDate DATE,
-   );
+    FOREIGN KEY (BookID) REFERENCES Books(BookID),
+    FOREIGN KEY (MemberID) REFERENCES Members(MemberID)
+);
 
 
 CREATE TABLE Fines (
@@ -66,7 +73,9 @@ CREATE TABLE Fines (
     CheckoutID INT,
     FineAmount DECIMAL(10, 2),
     FineDate DATE,
-   );
+    FOREIGN KEY (CheckoutID) REFERENCES Checkouts(CheckoutID)
+);
+
 
 --Values for each table in the database--
 
